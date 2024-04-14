@@ -2,16 +2,14 @@
 
 int main()
 {
-    int n = 1;
+    int n;
 
-    while (n != 0)
+    while (scanf("%d", &n) != EOF)
     {
-        scanf("%d", &n);
-
         if (n == 1999)
         {
             printf("Correct");
-            n = 0;
+            break;
         }
         else
         {

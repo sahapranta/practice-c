@@ -1,5 +1,7 @@
 *.out
+*.bin
 h.c
 hh.cpp
 in.txt
 out.txt
+/.cph
