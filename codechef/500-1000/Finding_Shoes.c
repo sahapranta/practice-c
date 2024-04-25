@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(void)
+int main()
 {
     int n, a, b;
     scanf("%d", &n);
@@ -8,15 +8,15 @@ int main(void)
     while (n--)
     {
         scanf("%d %d", &a, &b);
+        int need = a * 2;
+        int right = need - b;
 
-        int p = a - b;
-
-        if (p < 0)
+        if (b > a)
         {
-            p *= -1;
+            right = a;
         }
 
-        printf("%d\n", p);
+        printf("%d\n", right);
     }
 
     return 0;

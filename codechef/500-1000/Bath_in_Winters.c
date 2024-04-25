@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(void)
+int main()
 {
     int n, a, b;
     scanf("%d", &n);
@@ -9,13 +9,7 @@ int main(void)
     {
         scanf("%d %d", &a, &b);
 
-        int p = a - b;
-
-        if (p < 0)
-        {
-            p *= -1;
-        }
-
+        int p = a / (b * 2);
         printf("%d\n", p);
     }
 
