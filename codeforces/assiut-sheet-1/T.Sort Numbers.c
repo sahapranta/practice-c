@@ -5,24 +5,25 @@ int main()
     int a, b, c;
     scanf("%d%d%d", &a, &b, &c);
     int x = a, y = b, z = c;
+    int temp;
 
     if (a > b)
     {
-        int temp = a;
+        temp = a;
         a = b;
         b = temp;
     }
 
     if (b > c)
     {
-        int temp = b;
+        temp = b;
         b = c;
         c = temp;
     }
 
     if (a > b)
     {
-        int temp = a;
+        temp = a;
         a = b;
         b = temp;
     }
