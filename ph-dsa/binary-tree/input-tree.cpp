@@ -2,6 +2,8 @@
 
 using namespace std;
 
+// Input Binary Tree
+
 class Node
 {
 public:
@@ -75,32 +77,29 @@ Node *input_tree()
 
     return root;
 }
-
-void print_left(Node *root)
+void level_order(Node *root)
 {
-    if (root->left)
+    if (root == NULL)
     {
-        print_left(root->left);
-        cout << root->left->val << " ";
+        cout << "The tree is empty" << endl;
+        return;
     }
-    else if (root->right)
-    {
-        print_left(root->right);
-        cout << root->right->val << " ";
-    }
-}
 
-void print_right(Node *root)
-{
-    if (root->right)
+    queue<Node *> q;
+
+    q.push(root);
+
+    while (!q.empty())
     {
-        cout << root->right->val << " ";
-        print_right(root->right);
-    }
-    else if (root->left)
-    {
-        cout << root->left->val << " ";
-        print_right(root->left);
+        Node *f = q.front();
+        q.pop();
+
+        cout << f->val << " ";
+
+        if (f->left)
+            q.push(f->left);
+        if (f->right)
+            q.push(f->right);
     }
 }
 
@@ -108,39 +107,7 @@ int main()
 {
     Node *root = input_tree();
 
-    if (root == NULL)
-    {
-        return 0;
-    }
-
-    if (root->right == NULL && root->left == NULL)
-    {
-        cout << root->val << " ";
-        return 0;
-    }
-
-    if (root->left)
-    {
-        print_left(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right && root->left)
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right)
-    {
-        print_right(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
+    level_order(root);
 
     return 0;
 }

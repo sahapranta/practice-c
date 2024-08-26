@@ -76,71 +76,26 @@ Node *input_tree()
     return root;
 }
 
-void print_left(Node *root)
+int sum(Node *root)
 {
-    if (root->left)
-    {
-        print_left(root->left);
-        cout << root->left->val << " ";
-    }
-    else if (root->right)
-    {
-        print_left(root->right);
-        cout << root->right->val << " ";
-    }
-}
+    if (root == NULL)
+        return 0;
 
-void print_right(Node *root)
-{
-    if (root->right)
+    if (root->left == NULL && root->right == NULL)
     {
-        cout << root->right->val << " ";
-        print_right(root->right);
+        return 0;
     }
-    else if (root->left)
-    {
-        cout << root->left->val << " ";
-        print_right(root->left);
-    }
+
+    int l = sum(root->left);
+    int r = sum(root->right);
+    return l + r + root->val;
 }
 
 int main()
 {
     Node *root = input_tree();
 
-    if (root == NULL)
-    {
-        return 0;
-    }
-
-    if (root->right == NULL && root->left == NULL)
-    {
-        cout << root->val << " ";
-        return 0;
-    }
-
-    if (root->left)
-    {
-        print_left(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right && root->left)
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right)
-    {
-        print_right(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
+    cout << sum(root) << endl;
 
     return 0;
 }

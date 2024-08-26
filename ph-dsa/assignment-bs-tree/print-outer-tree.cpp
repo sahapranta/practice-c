@@ -113,12 +113,6 @@ int main()
         return 0;
     }
 
-    if (root->right == NULL && root->left == NULL)
-    {
-        cout << root->val << " ";
-        return 0;
-    }
-
     if (root->left)
     {
         print_left(root);

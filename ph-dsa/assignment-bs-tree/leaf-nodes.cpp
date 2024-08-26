@@ -76,70 +76,33 @@ Node *input_tree()
     return root;
 }
 
-void print_left(Node *root)
+void print_leaf(Node *root, vector<int> &v)
 {
-    if (root->left)
-    {
-        print_left(root->left);
-        cout << root->left->val << " ";
-    }
-    else if (root->right)
-    {
-        print_left(root->right);
-        cout << root->right->val << " ";
-    }
-}
+    if (root == NULL)
+        return;
 
-void print_right(Node *root)
-{
-    if (root->right)
+    if (root->right == NULL && root->left == NULL)
     {
-        cout << root->right->val << " ";
-        print_right(root->right);
+        v.push_back(root->val);
+        return;
     }
-    else if (root->left)
-    {
-        cout << root->left->val << " ";
-        print_right(root->left);
-    }
+
+    print_leaf(root->right, v);
+    print_leaf(root->left, v);
 }
 
 int main()
 {
     Node *root = input_tree();
+    vector<int> v;
 
-    if (root == NULL)
-    {
-        return 0;
-    }
+    print_leaf(root, v);
 
-    if (root->right == NULL && root->left == NULL)
-    {
-        cout << root->val << " ";
-        return 0;
-    }
+    sort(v.begin(), v.end(), greater<int>());
 
-    if (root->left)
+    for (int val : v)
     {
-        print_left(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right && root->left)
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right)
-    {
-        print_right(root);
-    }
-    else
-    {
-        cout << root->val << " ";
+        cout << val << " ";
     }
 
     return 0;

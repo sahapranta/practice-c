@@ -76,18 +76,21 @@ Node *input_tree()
     return root;
 }
 
-void print_left(Node *root)
+void count_leaf(Node *root, int &ans)
 {
-    if (root->left)
+    if (root == NULL)
+        return;
+
+    if (root->left == NULL && root->right == NULL)
     {
-        print_left(root->left);
-        cout << root->left->val << " ";
+        ans += root->val;
+        return;
     }
-    else if (root->right)
-    {
-        print_left(root->right);
-        cout << root->right->val << " ";
-    }
+
+    count_leaf(root->left, ans);
+    count_leaf(root->right, ans);
+
+    return;
 }
 
 void print_right(Node *root)
@@ -107,40 +110,12 @@ void print_right(Node *root)
 int main()
 {
     Node *root = input_tree();
+    int ans = 0;
+    count_leaf(root, ans);
 
-    if (root == NULL)
-    {
-        return 0;
-    }
+    cout << ans << endl;
 
-    if (root->right == NULL && root->left == NULL)
-    {
-        cout << root->val << " ";
-        return 0;
-    }
-
-    if (root->left)
-    {
-        print_left(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right && root->left)
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right)
-    {
-        print_right(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
+    print_right(root);
 
     return 0;
 }

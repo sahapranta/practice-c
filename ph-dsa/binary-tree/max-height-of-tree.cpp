@@ -76,71 +76,24 @@ Node *input_tree()
     return root;
 }
 
-void print_left(Node *root)
+int max_height(Node *root)
 {
-    if (root->left)
-    {
-        print_left(root->left);
-        cout << root->left->val << " ";
-    }
-    else if (root->right)
-    {
-        print_left(root->right);
-        cout << root->right->val << " ";
-    }
-}
+    if (root == NULL)
+        return 0;
 
-void print_right(Node *root)
-{
-    if (root->right)
-    {
-        cout << root->right->val << " ";
-        print_right(root->right);
-    }
-    else if (root->left)
-    {
-        cout << root->left->val << " ";
-        print_right(root->left);
-    }
+    int l = max_height(root->left);
+    int r = max_height(root->right);
+
+    return max(l, r) + 1;
 }
 
 int main()
 {
     Node *root = input_tree();
 
-    if (root == NULL)
-    {
-        return 0;
-    }
-
-    if (root->right == NULL && root->left == NULL)
-    {
-        cout << root->val << " ";
-        return 0;
-    }
-
-    if (root->left)
-    {
-        print_left(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right && root->left)
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right)
-    {
-        print_right(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
-
+    cout << "Max height: " << max_height(root) << endl;
     return 0;
 }
+
+// input: 10 20 30 70 150 120 40 80 90 -1 -1 130 -1 60 50 -1 -1 100 -1 -1 140 -1 -1 -1 -1 -1 110 -1 -1 -1 -1 = 6
+// intput: 10 20 50 30 40 70 60 -1 -1 -1 -1 -1 80 -1 -1 -1 -1 = 4

@@ -76,71 +76,50 @@ Node *input_tree()
     return root;
 }
 
-void print_left(Node *root)
+void preorder(Node *root)
 {
-    if (root->left)
-    {
-        print_left(root->left);
-        cout << root->left->val << " ";
-    }
-    else if (root->right)
-    {
-        print_left(root->right);
-        cout << root->right->val << " ";
-    }
+    if (root == NULL)
+        return;
+
+    cout << root->val << " ";
+    preorder(root->left);
+    preorder(root->right);
 }
 
-void print_right(Node *root)
+void postorder(Node *root)
 {
-    if (root->right)
-    {
-        cout << root->right->val << " ";
-        print_right(root->right);
-    }
-    else if (root->left)
-    {
-        cout << root->left->val << " ";
-        print_right(root->left);
-    }
+    if (root == NULL)
+        return;
+
+    postorder(root->left);
+    postorder(root->right);
+
+    cout << root->val << " ";
+}
+
+void in_order(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    in_order(root->left);
+    cout << root->val << " ";
+    in_order(root->right);
 }
 
 int main()
 {
     Node *root = input_tree();
 
-    if (root == NULL)
-    {
-        return 0;
-    }
+    preorder(root);
 
-    if (root->right == NULL && root->left == NULL)
-    {
-        cout << root->val << " ";
-        return 0;
-    }
+    cout << endl;
 
-    if (root->left)
-    {
-        print_left(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
+    postorder(root);
 
-    if (root->right && root->left)
-    {
-        cout << root->val << " ";
-    }
+    cout << endl;
 
-    if (root->right)
-    {
-        print_right(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
+    in_order(root);
 
     return 0;
 }

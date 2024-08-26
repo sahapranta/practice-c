@@ -76,71 +76,37 @@ Node *input_tree()
     return root;
 }
 
-void print_left(Node *root)
+int count(Node *root)
 {
-    if (root->left)
-    {
-        print_left(root->left);
-        cout << root->left->val << " ";
-    }
-    else if (root->right)
-    {
-        print_left(root->right);
-        cout << root->right->val << " ";
-    }
+    if (root == NULL)
+        return 0;
+
+    int l = count(root->left);
+    int r = count(root->right);
+
+    return l + r + 1;
 }
 
-void print_right(Node *root)
+int max_height(Node *root)
 {
-    if (root->right)
-    {
-        cout << root->right->val << " ";
-        print_right(root->right);
-    }
-    else if (root->left)
-    {
-        cout << root->left->val << " ";
-        print_right(root->left);
-    }
+    if (root == NULL)
+        return 0;
+
+    int l = max_height(root->left);
+    int r = max_height(root->right);
+
+    return max(l, r) + 1;
 }
 
 int main()
 {
     Node *root = input_tree();
 
-    if (root == NULL)
-    {
-        return 0;
-    }
+    int has = count(root);
+    int d = max_height(root);
+    int required = pow(2, d) - 1;
 
-    if (root->right == NULL && root->left == NULL)
-    {
-        cout << root->val << " ";
-        return 0;
-    }
-
-    if (root->left)
-    {
-        print_left(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right && root->left)
-    {
-        cout << root->val << " ";
-    }
-
-    if (root->right)
-    {
-        print_right(root);
-    }
-    else
-    {
-        cout << root->val << " ";
-    }
+    cout << (has == required ? "true" : "false");
 
     return 0;
 }
