@@ -2,67 +2,54 @@
 
 using namespace std;
 
-class Student
+int pivotIndex(vector<int> &nums)
 {
-public:
-    string name;
-    int roll;
-    int marks;
-    Student(string name, int roll, int marks)
-    {
-        this->name = name;
-        this->roll = roll;
-        this->marks = marks;
-    }
-};
+    int size = nums.size();
+    int left[size];
+    left[0] = 0;
+    int right[size];
+    right[0] = 0;
 
-class cmp
-{
-public:
-    bool operator()(Student a, Student b)
+    for (int i = 0; i < size; i++)
     {
-        if (a.marks < b.marks)
+        if (i != 0)
         {
-            return true;
+            left[i] = left[i - 1] + nums[i - 1];
         }
-        else if (a.marks > b.marks)
+
+        if (i != size - 1)
         {
-            return false;
-        }
-        else
-        {
-            if (a.roll > b.roll)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            right[i + 1] = nums[size - i - 1] + right[i];
         }
     }
-};
+
+    for (int i = 0; i < size; i++)
+    {
+        if (left[i] == right[size - (i + 1)])
+            return i;
+    }
+
+    return -1;
+}
+
+void print(int result, int answer)
+{
+    const string PASS = "✅ Passed";
+    const string FAIL = "❎ Failed";
+
+    cout << (result == answer ? PASS : FAIL) << ": " << result << endl;
+}
+
 int main()
 {
-    int n;
-    cin >> n;
+    vector<int> nums = {1, 7, 3, 6, 5, 6};
+    print(pivotIndex(nums), 3); // 3
 
-    priority_queue<Student, vector<Student>, cmp> pq;
+    vector<int> nums2 = {1, 2, 3};
+    print(pivotIndex(nums2), -1); // -1
 
-    for (int i = 0; i < n; i++)
-    {
-        string name;
-        int roll, marks;
-        cin >> name >> roll >> marks;
-        Student obj(name, roll, marks);
-        pq.push(obj);
-    }
-
-    while (!pq.empty())
-    {
-        cout << pq.top().name << " " << pq.top().roll << " " << pq.top().marks << endl;
-        pq.pop();
-    }
+    vector<int> nums3 = {2, 1, -1};
+    print(pivotIndex(nums3), 0); // 0
 
     return 0;
 }
