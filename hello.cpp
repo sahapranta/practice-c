@@ -2,54 +2,78 @@
 
 using namespace std;
 
-int pivotIndex(vector<int> &nums)
+long long int findMin(vector<long long int> v)
 {
-    int size = nums.size();
-    int left[size];
-    left[0] = 0;
-    int right[size];
-    right[0] = 0;
-
-    for (int i = 0; i < size; i++)
-    {
-        if (i != 0)
-        {
-            left[i] = left[i - 1] + nums[i - 1];
-        }
-
-        if (i != size - 1)
-        {
-            right[i + 1] = nums[size - i - 1] + right[i];
-        }
-    }
-
-    for (int i = 0; i < size; i++)
-    {
-        if (left[i] == right[size - (i + 1)])
-            return i;
-    }
-
-    return -1;
+    return *min_element(v.begin(), v.end());
 }
 
-void print(int result, int answer)
+void del(vector<long long int> &v, long long int x)
 {
-    const string PASS = "✅ Passed";
-    const string FAIL = "❎ Failed";
-
-    cout << (result == answer ? PASS : FAIL) << ": " << result << endl;
+    v.erase(remove(v.begin(), v.end(), x), v.end());
 }
 
 int main()
 {
-    vector<int> nums = {1, 7, 3, 6, 5, 6};
-    print(pivotIndex(nums), 3); // 3
+    vector<long long int> v;
 
-    vector<int> nums2 = {1, 2, 3};
-    print(pivotIndex(nums2), -1); // -1
+    int count;
+    cin >> count;
 
-    vector<int> nums3 = {2, 1, -1};
-    print(pivotIndex(nums3), 0); // 0
+    for (int i = 0; i < count; i++)
+    {
+        long long int num;
+        cin >> num;
+        v.push_back(num);
+    }
+
+    int n;
+    cin >> n;
+
+    while (n--)
+    {
+        int cmd;
+        cin >> cmd;
+
+        if (cmd == 0)
+        {
+            long long int x;
+            cin >> x;
+            v.push_back(x);
+
+            cout << findMin(v) << endl;
+        }
+        else if (cmd == 1)
+        {
+            if (v.empty())
+            {
+                cout << "Empty" << endl;
+            }
+            else
+            {
+                cout << findMin(v) << endl;
+            }
+        }
+        else if (cmd == 2)
+        {
+            if (v.empty())
+            {
+                cout << "Empty" << endl;
+            }
+            else
+            {
+                del(v, findMin(v));
+
+                if (v.empty())
+                {
+                    cout << "Empty" << endl;
+                }
+                else
+                {
+                    cout << findMin(v) << endl;
+                }
+            }
+        }
+    }
 
     return 0;
 }
