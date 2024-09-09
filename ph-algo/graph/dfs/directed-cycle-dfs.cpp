@@ -3,27 +3,30 @@
 using namespace std;
 const int N = 1e5 + 5;
 bool vis[N];
+bool path[N];
 bool ans;
-int parent[N];
+
 vector<int> adj[N];
 
 void dfs(int p)
 {
     vis[p] = true;
+    path[p] = true;
+
     for (int child : adj[p])
     {
-        if (vis[child] == true && parent[p] != child)
+        if (path[child])
         {
             ans = true;
-            return;
         }
 
         if (!vis[child])
         {
-            parent[child] = p;
             dfs(child);
         }
     }
+
+    path[p] = false;
 }
 
 int main()
@@ -36,11 +39,11 @@ int main()
         int a, b;
         cin >> a >> b;
         adj[a].push_back(b);
-        adj[b].push_back(a);
     }
 
     memset(vis, false, sizeof(vis));
-    memset(parent, -1, sizeof(parent));
+    memset(path, false, sizeof(path));
+
     ans = false;
 
     for (int i = 0; i < n; i++)
@@ -56,10 +59,16 @@ int main()
     return 0;
 }
 
-// INput
-//  4 3
-//  0 1
-//  1 2
-//  0 3
+// Input
+// 7 8
+// 4 3
+// 2 1
+// 1 0
+// 0 3
+// 3 1
+// 2 4
+// 4 5
+// 5 6
+// 2 6
 
-// Output: Cycle Not Found
+// Output: Cycle Found

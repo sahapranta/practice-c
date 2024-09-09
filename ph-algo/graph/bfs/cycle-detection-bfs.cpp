@@ -7,21 +7,31 @@ bool ans;
 int parent[N];
 vector<int> adj[N];
 
-void dfs(int p)
+void bfs(int s)
 {
-    vis[p] = true;
-    for (int child : adj[p])
-    {
-        if (vis[child] == true && parent[p] != child)
-        {
-            ans = true;
-            return;
-        }
+    queue<int> q;
+    q.push(s);
+    vis[s] = true;
 
-        if (!vis[child])
+    while (!q.empty())
+    {
+        int p = q.front();
+        q.pop();
+
+        for (int child : adj[p])
         {
-            parent[child] = p;
-            dfs(child);
+            if (vis[child] == true && parent[p] != child)
+            {
+                ans = true;
+                return;
+            }
+
+            if (!vis[child])
+            {
+                vis[child] = true;
+                parent[child] = p;
+                q.push(child);
+            }
         }
     }
 }
@@ -47,7 +57,7 @@ int main()
     {
         if (!vis[i])
         {
-            dfs(i);
+            bfs(i);
         }
     }
 
@@ -56,10 +66,10 @@ int main()
     return 0;
 }
 
-// INput
-//  4 3
-//  0 1
-//  1 2
-//  0 3
+// Input
+// 4 3
+// 0 1
+// 1 2
+// 0 3
 
 // Output: Cycle Not Found

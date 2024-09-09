@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+
 const int N = 1e5 + 5;
 bool vis[N];
 bool ans;
@@ -55,11 +56,3 @@ int main()
 
     return 0;
 }
-
-// INput
-//  4 3
-//  0 1
-//  1 2
-//  0 3
-
-// Output: Cycle Not Found
