@@ -1,4 +1,3 @@
-// Optimized implementation of Dijkstra algorithm
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -45,53 +44,34 @@ void dijkstra(int s)
     }
 }
 
-int main()
+class Solution
 {
-    int n, e;
-    cin >> n >> e;
-
-    while (e--)
+public:
+    int networkDelayTime(vector<vector<int>> &times, int n, int k)
     {
-        int a, b, c;
-        cin >> a >> b >> c;
-        v[a].push_back({b, c});
-        v[b].push_back({a, c});
-    }    
+        int n, e;
+        cin >> n >> e;
 
-    for (int i = 0; i < n; i++)
-    {
-        dis[i] = INT_MAX;
+        while (e--)
+        {
+            int a, b, c;
+            cin >> a >> b >> c;
+            v[a].push_back({b, c});
+            v[b].push_back({a, c});
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            dis[i] = INT_MAX;
+        }
+
+        dijkstra(0);
+
+        for (int i = 0; i < n; i++)
+        {
+            cout << i << " -> " << dis[i] << endl;
+        }
+
+        return 0;
     }
-
-    dijkstra(0);
-
-    for (int i = 0; i < n; i++)
-    {
-        cout << i << " -> " << dis[i] << endl;
-    }
-
-    return 0;
-}
-
-// Dijkstra optimized version
-// Complexity: O(V+E log V)
-// 0((V+E)log V)
-// 0(E Log V)
-
-// Input
-// 5 8
-// 0 1 10
-// 0 2 7
-// 0 3 4
-// 1 4 3
-// 2 4 5
-// 2 1 1
-// 3 4 5
-// 3 2 1
-
-// Output
-// 0 -> 0
-// 1 -> 6
-// 2 -> 5
-// 3 -> 4
-// 4 -> 9
+};
