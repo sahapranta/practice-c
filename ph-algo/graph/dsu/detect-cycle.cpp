@@ -1,19 +1,6 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
-class Edge
-{
-public:
-    int u, v, w;
-    Edge(int u, int v, int w)
-    {
-        this->u = u;
-        this->v = v;
-        this->w = w;
-    }
-};
-
 const int N = 1e5 + 5;
 int parent[N];
 int group_size[N];
@@ -54,64 +41,40 @@ void unionBySize(int node1, int node2)
     }
 }
 
-bool cmp(Edge &a, Edge &b)
-{
-    return a.w < b.w;
-}
-
 int main()
 {
     int n, e;
     cin >> n >> e;
     initialize(n);
-
-    vector<Edge> edgeList;
+    bool cycle = false;
 
     while (e--)
     {
-        int u, v, w;
-        cin >> u >> v >> w;
-        edgeList.push_back(Edge(u, v, w));
-    }
-
-    sort(edgeList.begin(), edgeList.end(), cmp);
-
-    int totalCost = 0;
-
-    for (Edge ed : edgeList)
-    {
-        int leaderA = find(ed.u);
-        int leaderB = find(ed.v);
-
+        int a, b;
+        cin >> a >> b;
+        int leaderA = find(a);
+        int leaderB = find(b);
         if (leaderA == leaderB)
         {
-            continue;
+            cycle = true;
         }
         else
         {
-            unionBySize(ed.u, ed.v);
-            totalCost += ed.w;
+            unionBySize(a, b);
         }
     }
 
-    if (totalCost > 0)
-    {
-        cout << totalCost << endl;
-    }
-    else
-    {
-        cout << "IMPOSSIBLE" << endl;
-    }
+    cout << (cycle ? "Cycle Found" : "Cycle not Found") << endl;
 
     return 0;
 }
 
+
 // Input
-// 5 7
-// 0 1 2
-// 0 2 3
-// 0 3 3
-// 3 4 6
-// 2 4 4
-// 2 1 7
-// 1 4 5
+// 6 6
+// 0 1
+// 0 2
+// 0 3
+// 3 4
+// 3 5
+// 4 5

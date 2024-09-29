@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 class Edge
@@ -77,6 +76,7 @@ int main()
     sort(edgeList.begin(), edgeList.end(), cmp);
 
     int totalCost = 0;
+    bool cycle = false;
 
     for (Edge ed : edgeList)
     {
@@ -85,6 +85,7 @@ int main()
 
         if (leaderA == leaderB)
         {
+            cycle = true;
             continue;
         }
         else
