@@ -17,23 +17,12 @@ int main()
     cin >> s;
 
     int dp[n + 1][s + 1];
+
     dp[0][0] = 1;
-    // memset(dp, 0, sizeof(dp));
 
     for (int i = 1; i <= s; i++)
     {
         dp[0][i] = 0;
-        // for (int j = 0; j <= s; j++)
-        // {
-        //     if (j == 0)
-        //     {
-        //         dp[i][j] = 1;
-        //     }
-        //     else if (i == 0)
-        //     {
-        //         dp[i][j] = 0;
-        //     }
-        // }
     }
 
     for (int i = 1; i <= n; i++)
