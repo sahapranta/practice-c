@@ -40,7 +40,14 @@ int main()
         }
     }
 
-    cout << "dp: " << dp[n][s] << endl;
+    cout << "Ans: " << dp[n][s] << endl;
 
     return 0;
 }
+
+// Input:
+// 3
+// 1 2 3
+// 5
+
+// Output: 2
